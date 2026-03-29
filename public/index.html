@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw Home Server MVP</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px; }
+    .card { background: #111827; border: 1px solid #334155; border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+    h1, h2 { margin-top: 0; }
+    pre { white-space: pre-wrap; word-break: break-word; background: #020617; padding: 16px; border-radius: 12px; }
+    ul { padding-left: 20px; }
+    .muted { color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>OpenClaw Home Server MVP</h1>
+    <p class="muted">작업 인박스와 로그 상태를 간단히 보는 최소 서비스</p>
+
+    <div class="card">
+      <h2>현재 작업 인박스</h2>
+      <pre id="tasks">불러오는 중...</pre>
+    </div>
+
+    <div class="card">
+      <h2>로그 파일 목록</h2>
+      <ul id="logs"><li>불러오는 중...</li></ul>
+    </div>
+  </div>
+
+  <script>
+    async function loadTasks() {
+      const res = await fetch('/api/tasks');
+      const data = await res.json();
+      document.getElementById('tasks').textContent = data.content;
+    }
+
+    async function loadLogs() {
+      const res = await fetch('/api/logs');
+      const data = await res.json();
+      const logs = document.getElementById('logs');
+      logs.innerHTML = '';
+      if (!data.files.length) {
+        logs.innerHTML = '<li>로그 없음</li>';
+        return;
+      }
+      data.files.forEach(name => {
+        const li = document.createElement('li');
+        li.textContent = name;
+        logs.appendChild(li);
+      });
+    }
+
+    loadTasks();
+    loadLogs();
+  </script>
+</body>
+</html>

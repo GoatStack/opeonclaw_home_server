@@ -1,0 +1,10 @@
+{
+  "name": "opeonclaw-home-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simple MVP service for task intake and status viewing",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  }
+}
