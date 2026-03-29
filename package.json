@@ -2,7 +2,7 @@
   "name": "opeonclaw-home-server",
   "version": "0.1.0",
   "private": true,
-  "description": "Simple MVP service for task intake and status viewing",
+  "description": "Minimal HTTP service with health endpoint and status page",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js"
